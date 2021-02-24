@@ -9,18 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ListăDeActivități">
-        <activity android:name=".FirstActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".FirstActivity"></activity>
+
         <activity
             android:name=".MainActivity"
             android:label="Activități">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity android:name=".AddActivity"
+            android:label="Adaugă sarcini"
+            android:parentActivityName=".MainActivity"></activity>
+
     </application>
 
 </manifest>
