@@ -1,8 +1,11 @@
 package com.lista.listdeactiviti.DataBase;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -16,7 +19,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID="_id";
     private static final String COLUMN_TITLE="activity_title";
 
-    public DataBaseHelper(@Nullable Context context) {
+     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context=context;
     }
@@ -33,6 +36,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(db);
+    }
+    public void addNewActivity(String title){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(COLUMN_TITLE,title);
 
+        long result=db.insert(TABLE_NAME,null,cv);
+
+        if(result==-1){
+            Toast.makeText(context, "Eroare!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Activitate nouă adăugată cu succes!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public Cursor readAllData(){
+        String query="SELECT * FROM "+ TABLE_NAME;
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        Cursor cursor=null;
+        if(db!=null){
+            cursor=db.rawQuery(query,null);
+        }
+        return cursor;
+    }
+
+    public void updateData(String row_id,String title){
+         SQLiteDatabase db=this.getWritableDatabase();
+         ContentValues cv=new ContentValues();
+         cv.put(COLUMN_TITLE,title);
+        long result=db.update(TABLE_NAME,cv,"_id=?",new String[] {row_id});
+
+        if (result == -1) {
+
+            Toast.makeText(context, "Eroare", Toast.LENGTH_SHORT).show();
+            
+        }else {
+            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

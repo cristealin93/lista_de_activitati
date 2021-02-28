@@ -8,7 +8,7 @@
     tools:context=".AddActivity">
 
     <EditText
-        android:id="@+id/edt_add_activity"
+        android:id="@+id/edt_add_activity2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -26,16 +26,16 @@
         app:layout_constraintVertical_bias="0.336" />
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_update"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:textSize="20sp"
-        android:text="Adaugă"
+        android:text="Update"
         android:backgroundTint="@color/teal_200"
-
+        android:backgroundTintMode="screen"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="@+id/edt_add_activity"
-        app:layout_constraintStart_toStartOf="@+id/edt_add_activity"
-        app:layout_constraintTop_toBottomOf="@+id/edt_add_activity" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_add_activity2"
+        app:layout_constraintStart_toStartOf="@+id/edt_add_activity2"
+        app:layout_constraintTop_toBottomOf="@+id/edt_add_activity2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
