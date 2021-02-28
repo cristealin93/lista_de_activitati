@@ -26,7 +26,6 @@
             android:parentActivityName=".MainActivity" />
 
         <activity android:name=".UpdateActivity"
-            android:label="Modifica sarcini"
             android:parentActivityName=".MainActivity" >
 
         </activity>
