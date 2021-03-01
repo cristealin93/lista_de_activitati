@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
    private ArrayList activity_id, activity_title;
 
    Activity activity;
+   Animation animation;
 
 
     public CustomAdapter(Activity activity, Context context, ArrayList activity_id, ArrayList activity_title){
@@ -47,6 +50,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.activity_id_txt.setText(String.valueOf(activity_id.get(position)));
         holder.activity_title_txt.setText(String.valueOf(activity_title.get(position)));
+
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +79,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             activity_id_txt=itemView.findViewById(R.id.id_activity_txt);
             activity_title_txt=itemView.findViewById(R.id.title_activity_txt);
             mainLayout=itemView.findViewById(R.id.mainLayout);
+
+            animation= AnimationUtils.loadAnimation(context,R.anim.trasntlate_anim);
+            mainLayout.setAnimation(animation);
         }
     }
 }
