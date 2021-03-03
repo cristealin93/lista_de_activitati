@@ -3,6 +3,7 @@ package com.lista.listdeactiviti;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.lista.listdeactiviti.DataBase.DataBaseHelper;
 
@@ -20,16 +22,17 @@ public class AddActivity extends AppCompatActivity {
     EditText title_input;
     Button add_button;
     View background;
-
+    ImageView close_img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.translate_add_activity, R.anim.translate_add_activity);
         setContentView(R.layout.activity_add);
-        
+
         title_input = findViewById(R.id.edt_add_activity);
         add_button = findViewById(R.id.btn_add);
         background = findViewById(R.id.background);
-
+        close_img=findViewById(R.id.close_img);
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,10 +59,17 @@ public class AddActivity extends AppCompatActivity {
                 });
             }
         }
+
+        close_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     private void circularRevealActivity() {
-        int cx = background.getRight() - getDips(44);
-        int cy = background.getBottom() - getDips(44);
+        int cx = background.getRight() - getDips(57);
+        int cy = background.getBottom() - getDips(57);
 
         float finalRadius = Math.max(background.getWidth(), background.getHeight());
 
@@ -70,7 +80,7 @@ public class AddActivity extends AppCompatActivity {
                 0,
                 finalRadius);
 
-        circularReveal.setDuration(3000);
+        circularReveal.setDuration(1500);
         background.setVisibility(View.VISIBLE);
         circularReveal.start();
 
@@ -87,8 +97,8 @@ public class AddActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int cx = background.getWidth() - getDips(44);
-            int cy = background.getBottom() - getDips(44);
+            int cx = background.getWidth() - getDips(57);
+            int cy = background.getBottom() - getDips(57);
 
             float finalRadius = Math.max(background.getWidth(), background.getHeight());
             Animator circularReveal = ViewAnimationUtils.createCircularReveal(background, cx, cy, finalRadius, 0);
@@ -115,7 +125,7 @@ public class AddActivity extends AppCompatActivity {
 
                 }
             });
-            circularReveal.setDuration(3000);
+            circularReveal.setDuration(1500);
             circularReveal.start();
         }
         else {
