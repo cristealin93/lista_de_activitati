@@ -5,43 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/background"
-    android:background="@color/purple_200"
-    tools:context=".AddActivity">
+    android:background="@color/fap_button"
+    tools:context=".AddActivity"
+    >
 
-    <EditText
-        android:id="@+id/edt_add_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="20sp"
-        android:hint="Sarcină nouă"
-        android:textColorHint="@color/black"
-        android:textColor="@android:color/black"
-        android:backgroundTint="@color/black"
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:backgroundTint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.323">
 
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="50dp"
-        android:textSize="20sp"
-        android:text="Adaugă"
-        android:backgroundTint="@color/teal_200"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="@+id/edt_add_activity"
-        app:layout_constraintStart_toStartOf="@+id/edt_add_activity"
-        app:layout_constraintTop_toBottomOf="@+id/edt_add_activity" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_add_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Listă nouă"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:met_baseColor="@color/black"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@color/fap_button"
+                app:met_singleLineEllipsis="true" />
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@android:color/transparent"
+                android:text="CREAZĂ"
+                android:backgroundTintMode="screen"
+                android:textColor="@color/fap_button"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/edt_add_activity" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/close_img"
+        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

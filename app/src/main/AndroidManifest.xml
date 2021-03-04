@@ -13,7 +13,8 @@
         <activity android:name=".FirstActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="Activități">
+            android:label="Activități"
+            android:theme="@style/AppTheme.mainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

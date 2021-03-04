@@ -5,24 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.Animator;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.lista.listdeactiviti.DataBase.DataBaseHelper;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class AddActivity extends AppCompatActivity {
 
-    EditText title_input;
+    MaterialEditText title_input;
     Button add_button;
     View background;
     ImageView close_img;
+    Window window;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +84,7 @@ public class AddActivity extends AppCompatActivity {
                 0,
                 finalRadius);
 
-        circularReveal.setDuration(1500);
+        circularReveal.setDuration(800);
         background.setVisibility(View.VISIBLE);
         circularReveal.start();
 
@@ -99,6 +103,8 @@ public class AddActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int cx = background.getWidth() - getDips(57);
             int cy = background.getBottom() - getDips(57);
+            window=getWindow();
+            window.setStatusBarColor(Color.TRANSPARENT);
 
             float finalRadius = Math.max(background.getWidth(), background.getHeight());
             Animator circularReveal = ViewAnimationUtils.createCircularReveal(background, cx, cy, finalRadius, 0);
@@ -125,7 +131,7 @@ public class AddActivity extends AppCompatActivity {
 
                 }
             });
-            circularReveal.setDuration(1500);
+            circularReveal.setDuration(800);
             circularReveal.start();
         }
         else {

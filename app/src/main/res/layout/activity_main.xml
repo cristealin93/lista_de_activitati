@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@null"
-        app:backgroundTint="@color/teal_700"/>
+        app:backgroundTint="@color/fap_button"/>
 
     <ImageView
         android:id="@+id/no_data"
