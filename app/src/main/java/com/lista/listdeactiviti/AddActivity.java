@@ -6,6 +6,7 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -37,6 +38,7 @@ public class AddActivity extends AppCompatActivity {
         add_button = findViewById(R.id.btn_add);
         background = findViewById(R.id.background);
         close_img=findViewById(R.id.close_img);
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
