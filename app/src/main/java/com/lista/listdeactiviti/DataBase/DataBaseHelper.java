@@ -19,6 +19,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ID="_id";
     private static final String COLUMN_TITLE="activity_title";
 
+    private static final String TABLE_LIST="my_activity_list";
+    private static final String ID_ITEM="id_item";
+    private static final String COLUMN_ITEM="activity_item";
+    private static final String COLUMN_FK="fk_id_activity";
+
      public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context=context;
@@ -28,14 +33,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query="CREATE TABLE "+TABLE_NAME+
                 " ("+COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_TITLE+" TEXT);";
+
         db.execSQL(query);
+
+        String query_2="CREATE TABLE "+TABLE_LIST+
+                " ("+ID_ITEM+" INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_ITEM+" TEXT, " +
+                COLUMN_FK+" INTEGER, " +"FOREIGN KEY ("+COLUMN_FK+") REFERENCES "+TABLE_NAME+"("+COLUMN_ID+"));";
+        db.execSQL(query_2);
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LIST);
         onCreate(db);
+
     }
     public void addNewActivity(String title){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -51,8 +65,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addNewItem(String item, String fk_id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(COLUMN_ITEM,item);
+        cv.put(COLUMN_FK,fk_id);
+
+        long result=db.insert(TABLE_LIST,null,cv);
+
+        if(result==-1){
+            Toast.makeText(context, "Eroare!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Item nou adăugat cu succes!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public Cursor readAllData(){
         String query="SELECT * FROM "+ TABLE_NAME;
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        Cursor cursor=null;
+        if(db!=null){
+            cursor=db.rawQuery(query,null);
+        }
+        return cursor;
+    }
+
+    public Cursor readDataFromItemTable(int fk_id){
+        String query="SELECT * FROM "+ TABLE_LIST +" WHERE "+COLUMN_FK+" = "+fk_id;
         SQLiteDatabase db=this.getReadableDatabase();
 
         Cursor cursor=null;

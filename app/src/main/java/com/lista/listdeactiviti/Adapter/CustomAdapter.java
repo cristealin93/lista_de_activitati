@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lista.listdeactiviti.ItemList;
 import com.lista.listdeactiviti.R;
 import com.lista.listdeactiviti.UpdateActivity;
 
@@ -54,7 +55,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, UpdateActivity.class);
+                Intent intent=new Intent(context, ItemList.class);
                 intent.putExtra("id",String.valueOf(activity_id.get(position)));
                 intent.putExtra("title",String.valueOf(activity_title.get(position)));
                 activity.startActivityForResult(intent,1);

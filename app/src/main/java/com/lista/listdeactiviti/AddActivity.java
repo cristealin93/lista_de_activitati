@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.lista.listdeactiviti.DataBase.DataBaseHelper;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -42,9 +43,17 @@ public class AddActivity extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DataBaseHelper myDB = new DataBaseHelper(AddActivity.this);
-                myDB.addNewActivity(title_input.getText().toString().trim());
+                if(title_input.getText().toString().trim().isEmpty()){
+                    myDB.addNewActivity("Lista noua");
+                }else{
+                    myDB.addNewActivity(title_input.getText().toString().trim());
+                }
+
+                Intent intent=new Intent(AddActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
