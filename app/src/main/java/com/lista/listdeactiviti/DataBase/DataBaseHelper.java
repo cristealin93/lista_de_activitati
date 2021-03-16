@@ -38,7 +38,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         String query_2="CREATE TABLE "+TABLE_LIST+
                 " ("+ID_ITEM+" INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_ITEM+" TEXT, " +
-                COLUMN_FK+" INTEGER, " +"FOREIGN KEY ("+COLUMN_FK+") REFERENCES "+TABLE_NAME+"("+COLUMN_ID+"));";
+                COLUMN_FK+" INTEGER );";
         db.execSQL(query_2);
 
 
@@ -66,10 +66,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void addNewItem(String item, String fk_id){
+         int val=Integer.parseInt(fk_id);
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put(COLUMN_ITEM,item);
-        cv.put(COLUMN_FK,fk_id);
+        cv.put(COLUMN_FK,val);
 
         long result=db.insert(TABLE_LIST,null,cv);
 

@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -35,12 +37,11 @@ public class ItemList extends AppCompatActivity {
 
         img_nodata_item=findViewById(R.id.no_data_item);
         txt_nodata_item=findViewById(R.id.txt_nodata_item);
+        btn_add_item=findViewById(R.id.btn_add_item);
 
         myDB=new DataBaseHelper(ItemList.this);
         item_id=new ArrayList<>();
         activity_item=new ArrayList<>();
-
-
 
         getAndSetIntentData();
         storeDataInArrayItem();
@@ -52,6 +53,19 @@ public class ItemList extends AppCompatActivity {
         }else{
             ab.setTitle(title);
         }
+
+        btn_add_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(ItemList.this,AddItem.class);
+                intent.putExtra("id_fk",id);
+                intent.putExtra("title_list",title);
+                startActivityForResult(intent,1);
+                finish();
+            }
+        });
+
     }
 
     void getAndSetIntentData(){
