@@ -2,6 +2,7 @@ package com.lista.listdeactiviti;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ClipData;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.lista.listdeactiviti.Adapter.ItemAdapter;
 import com.lista.listdeactiviti.DataBase.DataBaseHelper;
 
 import java.util.ArrayList;
@@ -26,9 +28,10 @@ public class ItemList extends AppCompatActivity {
     RecyclerView recyclerView_item;
 
     DataBaseHelper myDB;
-    ArrayList<String> item_id, activity_item;
+    ArrayList<String> activity_item;
     ImageView img_nodata_item;
     TextView txt_nodata_item;
+    ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,16 @@ public class ItemList extends AppCompatActivity {
         img_nodata_item=findViewById(R.id.no_data_item);
         txt_nodata_item=findViewById(R.id.txt_nodata_item);
         btn_add_item=findViewById(R.id.btn_add_item);
-
+        recyclerView_item=findViewById(R.id.recyclerview_item);
         myDB=new DataBaseHelper(ItemList.this);
-        item_id=new ArrayList<>();
         activity_item=new ArrayList<>();
 
         getAndSetIntentData();
         storeDataInArrayItem();
+
+        itemAdapter=new ItemAdapter(ItemList.this,ItemList.this,activity_item);
+        recyclerView_item.setAdapter(itemAdapter);
+        recyclerView_item.setLayoutManager(new LinearLayoutManager(ItemList.this));
 
         ActionBar ab=getSupportActionBar();
         assert ab != null;
@@ -87,7 +93,6 @@ public class ItemList extends AppCompatActivity {
             txt_nodata_item.setVisibility(View.VISIBLE);
         }else {
             while (cursor.moveToNext()){
-                item_id.add(cursor.getString(0));
                 activity_item.add(cursor.getString(1));
             }
             img_nodata_item.setVisibility(View.GONE);
