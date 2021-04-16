@@ -29,6 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         this.context=context;
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query="CREATE TABLE "+TABLE_NAME+
@@ -119,15 +120,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteData(String row_id){
+
         SQLiteDatabase db=this.getWritableDatabase();
         long result= db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
         if(result==-1){
             Toast.makeText(context, "Eroare", Toast.LENGTH_SHORT).show();
     }else {
-            Toast.makeText(context, "Activitatea a fost stearsa.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Lista a fost stearsa.", Toast.LENGTH_SHORT).show();
         }
 
     }
+
 
     public void deleteAllData() {
         SQLiteDatabase db=this.getWritableDatabase();
