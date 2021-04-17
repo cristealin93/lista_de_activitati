@@ -5,8 +5,9 @@
     <item android:id="@+id/delete"
         android:title="Sterge"
         app:showAsAction="never"/>
+
     <item android:id="@+id/edit"
-        android:title="Editare"
+        android:title="Redenumire"
         app:showAsAction="never"/>
 
 </menu>

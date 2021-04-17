@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void storeDataInArray(){
+   public void storeDataInArray(){
         Cursor cursor=myDB.readAllData();
         if(cursor.getCount()==0){
             ing_nodata.setVisibility(View.VISIBLE);

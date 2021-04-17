@@ -136,4 +136,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         db.execSQL("DELETE FROM "+ TABLE_NAME);
     }
+
+    public void undoList(String id, String title) {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+
+        int id_convert=Integer.parseInt(id);
+        cv.put(COLUMN_ID,id_convert);
+        cv.put(COLUMN_TITLE,title);
+
+
+        long result=db.insert(TABLE_NAME,null,cv);
+
+        if(result==-1){
+            Toast.makeText(context, "Eroare!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Activitate nouă adăugată cu succes!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void RenameList(String row_id, String title) {
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(COLUMN_TITLE,title);
+        long result=db.update(TABLE_NAME,cv,"_id=?",new String[] {row_id});
+
+        if (result == -1) {
+
+            Toast.makeText(context, "Eroare", Toast.LENGTH_SHORT).show();
+
+        }else {
+            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
