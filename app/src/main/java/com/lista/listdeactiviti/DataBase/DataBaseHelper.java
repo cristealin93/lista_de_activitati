@@ -171,4 +171,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public Cursor readFkColumn(){
+        String query="SELECT "+COLUMN_FK +" FROM "+ TABLE_LIST+";" ;
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        Cursor cursor=null;
+        if(db!=null){
+            cursor=db.rawQuery(query,null);
+        }
+        return cursor;
+    }
 }

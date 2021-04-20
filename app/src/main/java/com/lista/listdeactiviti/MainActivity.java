@@ -2,7 +2,6 @@ package com.lista.listdeactiviti;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,10 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +18,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lista.listdeactiviti.Adapter.CustomAdapter;
@@ -40,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> activity_id, activity_title;
     ImageView ing_nodata;
     TextView txt_nodata;
+    ArrayList<String> fk_array;
+    int count=0;
 
     CustomAdapter customAdapter;
 
@@ -66,12 +62,25 @@ public class MainActivity extends AppCompatActivity {
         myDB=new DataBaseHelper(MainActivity.this);
         activity_id=new ArrayList<>();
         activity_title=new ArrayList<>();
+        fk_array=new ArrayList<String>();
 
         storeDataInArray();
-
-        customAdapter=new CustomAdapter(MainActivity.this,MainActivity.this, activity_id,activity_title);
+        storeFkColumnForProgressBar();
+        customAdapter=new CustomAdapter(MainActivity.this,MainActivity.this, activity_id,activity_title,fk_array);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+    }
+
+    private void storeFkColumnForProgressBar() {
+        Cursor cursorFk=myDB.readFkColumn();
+        if(cursorFk.getCount()==0){
+            Toast.makeText(this, "Creaza o lista", Toast.LENGTH_SHORT).show();
+        }else {
+            while (cursorFk.moveToNext()){
+                fk_array.add(cursorFk.getString(0));
+                System.out.println(fk_array.get(count++));
+            }
+        }
     }
 
     @Override

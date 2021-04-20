@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,20 +37,22 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList activity_id, activity_title;
+    private ArrayList activity_id, activity_title,fkList;
     private View bau;
 
     MainActivity mainActivity;
     Activity activity;
     Animation animation;
     DataBaseHelper myDB;
+    int count=0, countNumberOfItem=0;
 
-    public CustomAdapter(Activity activity, Context context, ArrayList activity_id, ArrayList activity_title) {
+    public CustomAdapter(Activity activity, Context context, ArrayList activity_id, ArrayList activity_title, ArrayList fkList) {
 
         this.activity = activity;
         this.context = context;
         this.activity_id = activity_id;
         this.activity_title = activity_title;
+        this.fkList = fkList;
     }
 
     @NonNull
@@ -66,6 +69,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         holder.activity_id_txt.setText(String.valueOf(activity_id.get(position)));
         holder.activity_title_txt.setText(String.valueOf(activity_title.get(position)));
+        for(int i=0;i<fkList.size();i++){
+            if(holder.activity_id_txt.getText().equals(String.valueOf(fkList.get(i)))){
+                countNumberOfItem++;
+            }
+        }
+        if(countNumberOfItem>0){
+            holder.progressBar.setMax(10);
+            holder.progressBar.setProgress(countNumberOfItem);
+
+        }else{
+            holder.progressBar.setMax(0);
+            holder.progressBar.setProgress(0);
+        }
+        holder.txt_quantity_item.setText(holder.activity_id_txt.getText()+" / "+ String.valueOf(fkList.get(0)));
+
+
 
         holder.img_dot_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +160,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 .setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        myDB.undoList(id, title);
-                        activity_id.add(position, id);
-                        activity_title.add(position, title);
-                        notifyDataSetChanged();
+                        for(int i=0;i<activity_id.size();i++){
+                            if(activity_id.get(i)==id){
+                                count++;
+                            }
+                        }
+                        if(count>0){
+                            Toast.makeText(context, "Aceasta lista exista deja!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            myDB.undoList(id, title);
+                            activity_id.add(position, id);
+                            activity_title.add(position, title);
+                            notifyDataSetChanged();
+                        }
+                        count =0;
                     }
                 }).show();
 
@@ -157,19 +186,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView activity_id_txt, activity_title_txt;
+        TextView activity_id_txt, activity_title_txt, txt_quantity_item;
         LinearLayout mainLayout;
         ImageView img_dot_menu;
         EditText edt_Rename;
+        ProgressBar progressBar;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             activity_id_txt = itemView.findViewById(R.id.id_activity_txt);
+            txt_quantity_item = itemView.findViewById(R.id.txt_quantity_item);
             edt_Rename = itemView.findViewById(R.id.edt_Rename);
             activity_title_txt = itemView.findViewById(R.id.title_activity_txt);
             img_dot_menu = itemView.findViewById(R.id.img_dot_menu);
             mainLayout = itemView.findViewById(R.id.mainLayout);
+            progressBar = itemView.findViewById(R.id.progressBar);
 
             animation = AnimationUtils.loadAnimation(context, R.anim.trasntlate_anim);
             mainLayout.setAnimation(animation);
