@@ -77,12 +77,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         if(countNumberOfItem>0){
             holder.progressBar.setMax(10);
             holder.progressBar.setProgress(countNumberOfItem);
-
+            holder.txt_quantity_item.setText(0+" / "+countNumberOfItem);
+            countNumberOfItem=0;
         }else{
             holder.progressBar.setMax(0);
             holder.progressBar.setProgress(0);
+            holder.txt_quantity_item.setText(0+" / "+0);
         }
-        holder.txt_quantity_item.setText(holder.activity_id_txt.getText()+" / "+ String.valueOf(fkList.get(0)));
+
 
 
 

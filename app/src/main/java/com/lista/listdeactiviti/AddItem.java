@@ -39,6 +39,7 @@ public class AddItem extends AppCompatActivity {
                     Toast.makeText(AddItem.this, "Tastati un produs ", Toast.LENGTH_SHORT).show();
                 }else{
                     myDB.addNewItem(edt_item.getText().toString().trim(),fk_id);
+                    edt_item.setText("");
                 }
 
             }
